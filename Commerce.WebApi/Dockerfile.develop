@@ -1,0 +1,21 @@
+FROM mcr.microsoft.com/dotnet/sdk:5.0
+ARG BUILD_CONFIGURATION=Debug
+ENV ASPNETCORE_ENVIRONMENT=Development
+ENV ASPNETCORE_URLS=http://+:49155
+ENV DOTNET_USE_POLLING_FILE_WATCHER=true
+EXPOSE 49155
+
+WORKDIR /src
+COPY ["Commerce.Domain/Commerce.Domain.csproj", "Commerce.Domain/"]
+COPY ["Commerce.Infrastructure/Commerce.Infrastructure.csproj", "Commerce.Infrastructure/"]
+COPY ["Commerce.Services/Commerce.Services.csproj", "Commerce.Services/"]
+COPY ["Commerce.WebApi/Commerce.WebApi.csproj", "Commerce.WebApi/"]
+
+RUN dotnet restore "Commerce.WebApi/Commerce.WebApi.csproj"
+COPY . .
+WORKDIR "/src/Commerce.WebApi"
+RUN dotnet build --no-restore "Commerce.WebApi.csproj" -c $BUILD_CONFIGURATION
+
+RUN echo "exec dotnet run --no-build --no-launch-profile -c $BUILD_CONFIGURATION --" > /entrypoint.sh
+
+ENTRYPOINT ["/bin/bash", "/entrypoint.sh"]

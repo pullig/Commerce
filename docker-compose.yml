@@ -1,0 +1,22 @@
+version: '3.4'
+
+services:
+  commerce.webapi:
+    image: ${DOCKER_REGISTRY-}commercewebapi
+    environment:
+      - ASPNETCORE_URLS=https://+:49155;
+    build:
+      context: .
+      dockerfile: Commerce.WebApi/Dockerfile
+    ports:
+      - "49155:49155"
+    depends_on:
+            - commerce_sql
+  commerce_sql:
+    image: mcr.microsoft.com/mssql/server
+    environment: 
+      SA_PASSWORD: "teleMedicina@test"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+    restart: always
