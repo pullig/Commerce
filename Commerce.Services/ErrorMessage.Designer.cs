@@ -70,6 +70,15 @@ namespace Commerce.Services {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The username or password was incorrect..
+        /// </summary>
+        internal static string LoginNotFound {
+            get {
+                return ResourceManager.GetString("LoginNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Username is already in use..
         /// </summary>
         internal static string UsernameExists {

@@ -8,8 +8,9 @@ namespace Commerce.Domain
     {
         public MapperProfile()
         {
-            CreateMap<SignUpDto, User>();
+            CreateMap<SignUpRequest, User>();
             CreateMap<User, GetUserAsyncResult>();
+            CreateMap<User, SignedUser>();
         }
     }
 }

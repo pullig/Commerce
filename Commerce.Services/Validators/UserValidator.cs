@@ -4,7 +4,7 @@ using FluentValidation;
 
 namespace Commerce.Services.Validators
 {
-    public class SignUpValidator : AbstractValidator<SignUpDto>
+    public class SignUpValidator : AbstractValidator<SignUpRequest>
     {
         private readonly IUserRepository userRepository;
         public SignUpValidator(IUserRepository userRepository)

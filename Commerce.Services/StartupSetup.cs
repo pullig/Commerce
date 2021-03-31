@@ -15,7 +15,7 @@ namespace Commerce.Services
 
 		public static void AddValidators(this IServiceCollection services)
 		{
-			services.AddScoped<IValidator<SignUpDto>, SignUpValidator>();
+			services.AddScoped<IValidator<SignUpRequest>, SignUpValidator>();
 		}
 	}
 }

@@ -13,7 +13,7 @@ namespace Commerce.Domain.Interfaces.Repositories
         /// Filters to search for am user, if no filters are passed will return all users
         /// </param>
         /// <returns>List of users</returns>
-        public IEnumerable<User> GetUsers(GetUsersDto dto);
+        public IEnumerable<User> GetUsers(GetUsersRequest dto);
         /// <summary>
         /// Verify if the username is already in use
         /// </summary>
@@ -26,5 +26,11 @@ namespace Commerce.Domain.Interfaces.Repositories
         /// <param name="emailAddress">Email address</param>
         /// <returns>True if exists an user with the email address</returns>
         public bool VerifyIfEmailAddressExists(string emailAddress);
+        /// <summary>
+        /// Search for an user with the username and password specified
+        /// </summary>
+        /// <param name="dto">Username and password</param>
+        /// <returns>User</returns>
+        public User GetUserByUsernameAndPassword(SignInRequest dto);
     }
 }

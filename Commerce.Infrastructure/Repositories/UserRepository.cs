@@ -16,7 +16,7 @@ namespace Commerce.Infrastructure.Repositories
 
         }
 
-        public IEnumerable<User> GetUsers(GetUsersDto dto)
+        public IEnumerable<User> GetUsers(GetUsersRequest dto)
         {
             IEnumerable<User> result = context.Users.AsEnumerable();
 
@@ -71,6 +71,12 @@ namespace Commerce.Infrastructure.Repositories
         public bool VerifyIfEmailAddressExists(string emailAddress)
         {
             return context.Users.Any(u => u.EmailAddress.ToLower().Equals(emailAddress.ToLower()));
+        }
+
+        public User GetUserByUsernameAndPassword(SignInRequest dto)
+        {
+            return context.Users.FirstOrDefault(u => u.Username.Equals(dto.Username) &&
+                                                    u.Password.Equals(dto.Password));
         }
     }
 }

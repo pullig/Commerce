@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Commerce.Domain.DTOs
 {
-    public class SignUpDto
+    public class SignUpRequest
     {
         [Required]
         public string Username { get; set; }

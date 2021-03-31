@@ -2,6 +2,7 @@
 using Commerce.Domain.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Commerce.WebApi.Controllers
 {
@@ -26,7 +27,8 @@ namespace Commerce.WebApi.Controllers
         /// <param name="OrderBy">Sorting criteria</param> 
         /// <response code="200">Users list</response>
         [HttpGet]
-        public IActionResult Get([FromQuery]GetUsersDto dto)
+        [Authorize]
+        public IActionResult Get([FromQuery]GetUsersRequest dto)
         {
             return Ok(userService.GetUsers(dto));
         }
@@ -36,11 +38,23 @@ namespace Commerce.WebApi.Controllers
         /// <param name="signupDto">User's data</param>
         /// <response code="200">User created</response>
         [HttpPost("SignUp")]
-        public async Task<IActionResult> SignUpAsync([FromBody] SignUpDto signupDto)
+        public async Task<IActionResult> SignUpAsync([FromBody] SignUpRequest signupDto)
         {
             await userService.SignUpAsync(signupDto);
 
             return Ok();
+        }
+        /// <summary>
+        /// Sign the user in the service if they exist on the database
+        /// </summary>
+        /// <param name="dto">Username and password</param>
+        /// <response code="200">User and token</response>
+        [HttpPost("SignIn")]
+        public async Task<IActionResult> SignInAsync([FromBody] SignInRequest dto)
+        {
+            var user = await userService.SignInAsync(dto);
+
+            return Ok(user);
         }
     }
 }

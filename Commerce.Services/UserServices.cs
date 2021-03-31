@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Commerce.Domain.DTOs;
 using Commerce.Domain.Entities;
+using Commerce.Domain.Interfaces.Clients;
 using Commerce.Domain.Interfaces.Repositories;
 using Commerce.Domain.Interfaces.Services;
 using Commerce.Services.Extensions;
@@ -15,23 +16,26 @@ namespace Commerce.Services
     {
         private readonly IUserRepository userRepository;
         private readonly IMapper mapper;
-        private readonly IValidator<SignUpDto> signUpValidator;
+        private readonly IValidator<SignUpRequest> signUpValidator;
+        private readonly IAuth0Client auth0Client;
 
         public UserServices(IUserRepository userRepository, IMapper mapper,
-            IValidator<SignUpDto> signUpValidator)
+            IValidator<SignUpRequest> signUpValidator,
+            IAuth0Client auth0Client)
         {
             this.userRepository = userRepository;
             this.mapper = mapper;
             this.signUpValidator = signUpValidator;
+            this.auth0Client = auth0Client;
         }
 
-        public IEnumerable<GetUserAsyncResult> GetUsers(GetUsersDto dto)
+        public IEnumerable<GetUserAsyncResult> GetUsers(GetUsersRequest dto)
         {
             var result = userRepository.GetUsers(dto);
             return mapper.Map<IEnumerable<GetUserAsyncResult>>(result);
         }
 
-        public async Task SignUpAsync(SignUpDto signupDto)
+        public async Task SignUpAsync(SignUpRequest signupDto)
         {
             var validationResult = signUpValidator.Validate(signupDto);
 
@@ -48,6 +52,28 @@ namespace Commerce.Services
             user.CreationDate = DateTime.Now;
 
             await userRepository.AddAsync(user);
+        }
+
+        public async Task<SignInResult> SignInAsync(SignInRequest dto)
+        {
+            dto.Password = Base64.Encode(dto.Password);
+
+            var user = userRepository.GetUserByUsernameAndPassword(dto);
+
+            if (user == null)
+            {
+                throw new Exception(ErrorMessage.LoginNotFound);
+            }
+
+            var result = await auth0Client.GetTokenAsync();
+
+            var userSignedIn = mapper.Map<SignedUser>(user);
+
+            return new SignInResult
+            {
+                Token = result.Token,
+                User = userSignedIn
+            };
         }
     }
 }

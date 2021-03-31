@@ -1,9 +1,11 @@
 ﻿using Commerce.Domain.DTOs;
+using Commerce.Domain.Entities;
 using Commerce.Domain.Enums;
 using Commerce.Domain.Interfaces.Repositories;
 using Commerce.Infrastructure.Repositories;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Commerce.Test.Repositories
@@ -23,7 +25,7 @@ namespace Commerce.Test.Repositories
             var userRepository = InitializeRepository();
             var users = context.CommerceContext().Users;
 
-            var result = userRepository.GetUsers(new GetUsersDto());
+            var result = userRepository.GetUsers(new GetUsersRequest());
 
             context.DropCommerceContext();
             Assert.Equal(users.ToList(), result.OrderBy(r => r.Id));
@@ -32,7 +34,7 @@ namespace Commerce.Test.Repositories
         [Fact]
         public void GetUsers_ShouldReturnListOfUsersFilteredByUserName()
         {
-            var dto = new GetUsersDto
+            var dto = new GetUsersRequest
             {
                 Username = "username",
                 OrderBy = UserOrderBy.UsernameAscending
@@ -52,7 +54,7 @@ namespace Commerce.Test.Repositories
         [Fact]
         public void GetUsers_ShouldReturnListOfUsersFilteredByDisplayname()
         {
-            var dto = new GetUsersDto
+            var dto = new GetUsersRequest
             {
                 DisplayName = "DisplayName",
                 OrderBy = UserOrderBy.UsernameDescending
@@ -72,7 +74,7 @@ namespace Commerce.Test.Repositories
         [Fact]
         public void GetUsers_ShouldReturnListOfUsersFilteredByEmailAddress()
         {
-            var dto = new GetUsersDto
+            var dto = new GetUsersRequest
             {
                 EmailAddress = "memail3@email.com",
                 OrderBy = UserOrderBy.DisplayNameAscending
@@ -92,7 +94,7 @@ namespace Commerce.Test.Repositories
         [Fact]
         public void GetUsers_ShouldReturnListOfUsersFilteredByStartDate()
         {
-            var dto = new GetUsersDto
+            var dto = new GetUsersRequest
             {
                 StartDate = DateTime.Now,
                 OrderBy = UserOrderBy.DisplayNameDescending
@@ -112,7 +114,7 @@ namespace Commerce.Test.Repositories
         [Fact]
         public void GetUsers_ShouldReturnListOfUsersFilteredByEndDate()
         {
-            var dto = new GetUsersDto
+            var dto = new GetUsersRequest
             {
                 EndDate = DateTime.Now.AddDays(-15),
                 OrderBy = UserOrderBy.EmailAddressAscending
@@ -133,7 +135,7 @@ namespace Commerce.Test.Repositories
         [Fact]
         public void GetUsers_ShouldReturnListOfUsersFilteredByAll()
         {
-            var dto = new GetUsersDto
+            var dto = new GetUsersRequest
             {
                 Username = "ausername",
                 DisplayName = "aDisplayName",
@@ -201,6 +203,34 @@ namespace Commerce.Test.Repositories
 
             context.DropCommerceContext();
             Assert.False(result);
+        }
+
+        [Fact]
+        public async Task AddAsync_ShouldAddUser()
+        {
+            var userRepository = InitializeRepository();
+
+            var user = new User
+            {
+                CreationDate = DateTime.Now,
+                DisplayName = "newDisplayName",
+                EmailAddress = "newEmailAddress",
+                Password = "password",
+                Username = "AddAsyncTestUser"
+            };
+
+            var result = await userRepository.AddAsync(user);
+
+            var addedUser = context.CommerceContext().Users.FirstOrDefault(u => u.Username.Equals(user.Username));
+
+            context.DropCommerceContext();
+            Assert.NotNull(addedUser);
+            Assert.NotEqual(0, addedUser.Id);
+            Assert.Equal(user.Username, addedUser.Username);
+            Assert.Equal(user.DisplayName, addedUser.DisplayName);
+            Assert.Equal(user.EmailAddress, addedUser.EmailAddress);
+            Assert.Equal(user.CreationDate, addedUser.CreationDate);
+            Assert.Equal(user.Password, addedUser.Password);
         }
 
         private IUserRepository InitializeRepository()

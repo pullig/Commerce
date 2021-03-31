@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Commerce.Domain.DTOs
 {
-    public class GetUsersDto
+    public class GetUsersRequest
     {
         public string Username { get;set; }
 
