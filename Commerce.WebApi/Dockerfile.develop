@@ -8,8 +8,8 @@ EXPOSE 49155
 WORKDIR /src
 COPY ["Commerce.Domain/Commerce.Domain.csproj", "Commerce.Domain/"]
 COPY ["Commerce.Infrastructure/Commerce.Infrastructure.csproj", "Commerce.Infrastructure/"]
-COPY ["Commerce.Services/Commerce.Services.csproj", "Commerce.Services/"]
 COPY ["Commerce.WebApi/Commerce.WebApi.csproj", "Commerce.WebApi/"]
+
 
 RUN dotnet restore "Commerce.WebApi/Commerce.WebApi.csproj"
 COPY . .

@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Commerce.Infrastructure", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Commerce.Domain", "Commerce.Domain\Commerce.Domain.csproj", "{78B202C6-5907-4D7D-926E-84663D358DCE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Commerce.Services", "Commerce.Services\Commerce.Services.csproj", "{2DDB9771-EE84-4584-9587-2D19BAD73164}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Commerce.Test", "Commerce.Test\Commerce.Test.csproj", "{E03FCB14-FABE-4AF4-915A-46B5469028C9}"
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Commerce.Database", "Commerce.Database\Commerce.Database.sqlproj", "{27A6E926-393A-4D1D-B900-197011D17167}"
@@ -16,6 +14,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Commerce.WebApi", "Commerce.WebApi\Commerce.WebApi.csproj", "{D02BB456-7AC1-4D01-964F-F6069655AC14}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{1926ED48-494A-43F8-8CF6-ED6D0883F1D1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Commerce.Services", "Commerce.Services\Commerce.Services.csproj", "{8537023B-4E5B-4186-8303-833D2005E688}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,10 +31,6 @@ Global
 		{78B202C6-5907-4D7D-926E-84663D358DCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{78B202C6-5907-4D7D-926E-84663D358DCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{78B202C6-5907-4D7D-926E-84663D358DCE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2DDB9771-EE84-4584-9587-2D19BAD73164}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2DDB9771-EE84-4584-9587-2D19BAD73164}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2DDB9771-EE84-4584-9587-2D19BAD73164}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2DDB9771-EE84-4584-9587-2D19BAD73164}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E03FCB14-FABE-4AF4-915A-46B5469028C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E03FCB14-FABE-4AF4-915A-46B5469028C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E03FCB14-FABE-4AF4-915A-46B5469028C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -53,6 +49,10 @@ Global
 		{1926ED48-494A-43F8-8CF6-ED6D0883F1D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1926ED48-494A-43F8-8CF6-ED6D0883F1D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1926ED48-494A-43F8-8CF6-ED6D0883F1D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8537023B-4E5B-4186-8303-833D2005E688}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8537023B-4E5B-4186-8303-833D2005E688}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8537023B-4E5B-4186-8303-833D2005E688}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8537023B-4E5B-4186-8303-833D2005E688}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

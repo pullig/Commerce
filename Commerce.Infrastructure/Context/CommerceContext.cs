@@ -1,4 +1,4 @@
-﻿using Commerce.Domain.Entitties;
+﻿using Commerce.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Commerce.Infrastructure.Context
@@ -39,7 +39,7 @@ namespace Commerce.Infrastructure.Context
                 entity.HasOne(o => o.Product).
                     WithOne();
 
-                entity.HasNoKey();
+                entity.HasKey(o => o.Id);
 
                 entity.Property(po => po.UnityPrice)
                     .HasColumnType("DECIMAL(10,2)");
@@ -67,7 +67,7 @@ namespace Commerce.Infrastructure.Context
 
                 entity.HasKey(o => o.Id);
 
-                entity.Property(o => o.Name)
+                entity.Property(o => o.Username)
                     .HasMaxLength(50);
 
                 entity.Property(o => o.DisplayName)
