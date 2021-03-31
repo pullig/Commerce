@@ -127,7 +127,8 @@ namespace Commerce.Test.Repositories
 
             var userRepository = InitializeRepository();
             var users = context.CommerceContext().Users
-                            .Where(u => u.CreationDate <= dto.EndDate)
+                            .Where(u => u.Username.Contains(dto.Username) &&
+                                            u.DisplayName.Contains(dto.DisplayName))
                             .OrderBy(u => u.EmailAddress);
 
             var result = userRepository.GetUsers(dto);
@@ -151,8 +152,12 @@ namespace Commerce.Test.Repositories
 
             var userRepository = InitializeRepository();
             var users = context.CommerceContext().Users
-                            .Where(u => u.CreationDate <= dto.EndDate)
-                            .OrderBy(u => u.EmailAddress);
+                            .Where(u => u.Username.Contains(dto.Username) &&
+                                            u.DisplayName.Contains(dto.DisplayName) &&
+                                            u.EmailAddress.Contains(dto.EmailAddress) &&
+                                            u.CreationDate >= dto.StartDate &&
+                                            u.CreationDate <= dto.EndDate)
+                            .OrderByDescending(u => u.EmailAddress);
 
             var result = userRepository.GetUsers(dto);
 
