@@ -11,6 +11,8 @@ namespace Commerce.Domain
             CreateMap<SignUpRequest, User>();
             CreateMap<User, GetUserAsyncResult>();
             CreateMap<User, SignedUser>();
+
+            CreateMap<AddProductRequest, Product>();
         }
     }
 }

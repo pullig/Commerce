@@ -18,6 +18,7 @@ namespace Commerce.Infrastructure
 		{
 			services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
 			services.AddScoped<IUserRepository, UserRepository>();
+			services.AddScoped<IProductRepository, ProductRepository>();
 		}
 
 		public static void AddClients(this IServiceCollection services)

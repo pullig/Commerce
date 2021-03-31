@@ -11,6 +11,7 @@ namespace Commerce.Services
 		public static void AddServices(this IServiceCollection services) 
 		{
 			services.AddScoped<IUserServices, UserServices>();
+			services.AddScoped<IProductService, ProductService>();
 		}
 
 		public static void AddValidators(this IServiceCollection services)
