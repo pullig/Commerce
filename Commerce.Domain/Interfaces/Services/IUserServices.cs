@@ -1,5 +1,4 @@
 ﻿using Commerce.Domain.DTOs;
-using Commerce.Domain.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

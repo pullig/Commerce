@@ -1,16 +1,9 @@
 ﻿using Commerce.Domain.DTOs;
 using Commerce.Domain.Enums;
 using Commerce.Domain.Interfaces.Repositories;
-using Commerce.Infrastructure.Context;
 using Commerce.Infrastructure.Repositories;
-using Microsoft.EntityFrameworkCore;
-using Moq;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace Commerce.Test.Repositories

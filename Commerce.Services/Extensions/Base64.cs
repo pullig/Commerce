@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Commerce.Services.Extensions
+﻿namespace Commerce.Services.Extensions
 {
     public class Base64
     {
