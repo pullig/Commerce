@@ -4,6 +4,7 @@ using Commerce.Domain.Entities;
 using Commerce.Domain.Interfaces.Repositories;
 using Commerce.Domain.Interfaces.Services;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Commerce.Services
@@ -43,6 +44,12 @@ namespace Commerce.Services
             product.Price = request.Price;
 
             await productRepository.UpdateAsync(product);
+        }
+
+        public IEnumerable<GetProductsResult> GetProducts(GetProductsRequest dto)
+        {
+            var result = productRepository.GetProducts(dto);
+            return mapper.Map<IEnumerable<GetProductsResult>>(result);
         }
     }
 }

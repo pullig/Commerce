@@ -1,11 +1,7 @@
 ﻿using Commerce.Domain.DTOs;
 using Commerce.Domain.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Commerce.WebApi.Controllers
@@ -46,6 +42,22 @@ namespace Commerce.WebApi.Controllers
             await productService.UpdateAsync(id, request);
 
             return Ok();
+        }
+        /// <summary>
+        /// Get products based on filters passed
+        /// </summary>
+        /// <param name="Name">Product name</param>
+        /// <param name="Description">Product description</param> 
+        /// <param name="Price">Product's price</param>
+        /// <param name="StartDate">Start date for the period the product was created</param> 
+        /// <param name="EndDate">End date for the period the product was created</param>
+        /// <param name="OrderBy">Sorting criteria</param> 
+        /// <response code="200">Products list</response>
+        [HttpGet]
+        [Authorize]
+        public IActionResult Get([FromQuery] GetProductsRequest dto)
+        {
+            return Ok(productService.GetProducts(dto));
         }
     }
 }

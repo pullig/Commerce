@@ -6,6 +6,7 @@ using Commerce.Domain.Interfaces.Services;
 using Commerce.Services;
 using Moq;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -62,6 +63,19 @@ namespace Commerce.Test.Services
         }
 
         [Fact]
+        public async Task UpdateProductAsync_ShouldReturnException()
+        {
+            var dto = new UpdateProductRequest
+            {
+                Description = "Updated " + mockProduct.Description,
+                Name = "Updated " + mockProduct.Name,
+                Price = mockProduct.Price + 1
+            };
+
+            await Assert.ThrowsAnyAsync<Exception>(() => productService.UpdateAsync(mockProduct.Id, dto));
+        }
+
+        [Fact]
         public async Task UpdateProductAsync_ShouldReturnSuccess()
         {
             var dto = new UpdateProductRequest
@@ -84,6 +98,39 @@ namespace Commerce.Test.Services
                 });
 
             await productService.UpdateAsync(mockProduct.Id, dto);
+        }
+
+        [Fact]
+        public void GetProducts_ShouldReturnListOfProducts()
+        {
+            var getProductResult = new GetProductsResult
+            {
+                CreationDate = mockProduct.CreationDate,
+                Description = mockProduct.Description,
+                Id = mockProduct.Id,
+                Name = mockProduct.Name,
+                Price = mockProduct.Price
+            };
+
+            var listUser = new List<Product>()
+            {
+                mockProduct
+            };
+
+            var listResult = new List<GetProductsResult>
+            {
+                getProductResult
+            };
+
+            mockMapper.Setup(m => m.Map<IEnumerable<GetProductsResult>>(It.IsAny<IEnumerable<Product>>()))
+                .Returns(listResult);
+
+            mockProductRepository.Setup(m => m.GetProducts(It.IsAny<GetProductsRequest>())).
+                Returns(listUser);
+
+            var result = productService.GetProducts(new GetProductsRequest());
+
+            Assert.Equal(listResult, result);
         }
 
 

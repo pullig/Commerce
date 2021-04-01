@@ -18,7 +18,7 @@ namespace Commerce.Infrastructure.Repositories
 
         public IEnumerable<User> GetUsers(GetUsersRequest dto)
         {
-            IEnumerable<User> result = context.Users.AsEnumerable();
+            IEnumerable<User> result = context.Users.AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(dto.Username))
             {
