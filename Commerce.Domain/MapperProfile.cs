@@ -13,6 +13,7 @@ namespace Commerce.Domain
             CreateMap<User, SignedUser>();
 
             CreateMap<AddProductRequest, Product>();
+            CreateMap<UpdateProductRequest, Product>();
         }
     }
 }

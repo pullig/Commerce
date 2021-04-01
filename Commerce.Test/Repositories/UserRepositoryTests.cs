@@ -14,9 +14,11 @@ namespace Commerce.Test.Repositories
     {
         MockCommerceContext context;
 
+        string dataBaseName;
+
         public UserRepositoryTests() 
         {
-            
+            dataBaseName = "UserRepositoryTests";
         }
 
         [Fact]
@@ -235,7 +237,7 @@ namespace Commerce.Test.Repositories
 
         private IUserRepository InitializeRepository()
         {
-            context = new MockCommerceContext();
+            context = new MockCommerceContext(dataBaseName);
             return new UserRepository(context.CommerceContext());
         }
     }

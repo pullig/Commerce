@@ -54,5 +54,26 @@ namespace Commerce.Infrastructure.Repositories
                 throw new Exception($"{nameof(entity)} could not be updated: {ex.Message}");
             }
         }
+
+        public TEntity GetById(int id)
+        {
+            TEntity entity;
+
+            if (id == 0)
+            {
+                throw new ArgumentNullException($"{nameof(GetById)} Id must not be 0");
+            }
+
+            try
+            {
+                entity = context.Set<TEntity>().Find(id);
+
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"{nameof(entity)} could not be searched: {ex.Message}");
+            }
+        }
     }
 }

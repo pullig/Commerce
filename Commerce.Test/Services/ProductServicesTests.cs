@@ -61,6 +61,31 @@ namespace Commerce.Test.Services
             await productService.AddAsync(dto);
         }
 
+        [Fact]
+        public async Task UpdateProductAsync_ShouldReturnSuccess()
+        {
+            var dto = new UpdateProductRequest
+            {
+                Description = "Updated " + mockProduct.Description,
+                Name = "Updated " + mockProduct.Name,
+                Price = mockProduct.Price + 1
+            };
+
+            mockProductRepository.Setup(m => m.GetById(It.IsAny<int>()))
+                .Returns(mockProduct);
+
+            mockProductRepository.Setup(u => u.UpdateAsync(It.IsAny<Product>()))
+                .Callback<Product>((product) =>
+                {
+                    Assert.Equal(mockProduct.Id, product.Id);
+                    Assert.Equal(dto.Description, product.Description);
+                    Assert.Equal(dto.Name, product.Name);
+                    Assert.Equal(dto.Price, product.Price);
+                });
+
+            await productService.UpdateAsync(mockProduct.Id, dto);
+        }
+
 
     }
 }

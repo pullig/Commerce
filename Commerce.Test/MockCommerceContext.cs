@@ -9,10 +9,10 @@ namespace Commerce.Test
     {
         readonly CommerceContext context;
 
-        public MockCommerceContext()
+        public MockCommerceContext(string dataBasename)
         {
             var options = new DbContextOptionsBuilder<CommerceContext>()
-                .UseInMemoryDatabase(databaseName: "commerce")
+                .UseInMemoryDatabase(databaseName: dataBasename)
                 .Options;
 
             context = new CommerceContext(options);

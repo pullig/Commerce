@@ -11,5 +11,11 @@ namespace Commerce.Domain.Interfaces.Services
         /// <param name="request">Product details</param>
         /// <returns></returns>
         public Task AddAsync(AddProductRequest request);
+        /// <summary>
+        /// Update a product
+        /// </summary>
+        /// <param name="request">Product details</param>
+        /// <returns></returns>
+        public Task UpdateAsync(int id, UpdateProductRequest request);
     }
 }

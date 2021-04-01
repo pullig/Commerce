@@ -123,6 +123,9 @@
   <data name="LoginNotFound" xml:space="preserve">
     <value>The username or password was incorrect.</value>
   </data>
+  <data name="ProductNotFound" xml:space="preserve">
+    <value>Product does not exist.</value>
+  </data>
   <data name="UsernameExists" xml:space="preserve">
     <value>Username is already in use.</value>
   </data>

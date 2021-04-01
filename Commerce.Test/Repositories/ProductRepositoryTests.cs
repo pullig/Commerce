@@ -12,9 +12,11 @@ namespace Commerce.Test.Repositories
     {
         MockCommerceContext context;
 
+        string dataBaseName;
+
         public ProductRepositoryTests()
         {
-
+            dataBaseName = "ProductRepositoryTests";
         }
 
         [Fact]
@@ -43,9 +45,33 @@ namespace Commerce.Test.Repositories
             Assert.Equal(product.CreationDate, addedProduct.CreationDate);
         }
 
+        [Fact]
+        public async Task UpdateAsync_ShouldUpdateProduct()
+        {
+            var userRepository = InitializeRepository();
+
+            var product = context.CommerceContext().Products.FirstOrDefault(u => u.Id == 1);
+
+            product.Name = "updatedName";
+            product.Description = "updatedDescription";
+            product.Price = 6M;
+
+            var result = await userRepository.UpdateAsync(product);
+
+            var updatedProduct = context.CommerceContext().Products.FirstOrDefault(u => u.Id == product.Id);
+
+            context.DropCommerceContext();
+            Assert.NotNull(updatedProduct);
+            Assert.Equal(product.Id, updatedProduct.Id);
+            Assert.Equal(product.Name, updatedProduct.Name);
+            Assert.Equal(product.Description, updatedProduct.Description);
+            Assert.Equal(product.Price, updatedProduct.Price);
+            Assert.Equal(product.CreationDate, updatedProduct.CreationDate);
+        }
+
         private IProductRepository InitializeRepository()
         {
-            context = new MockCommerceContext();
+            context = new MockCommerceContext(dataBaseName);
             return new ProductRepository(context.CommerceContext());
         }
     }

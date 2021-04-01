@@ -27,9 +27,23 @@ namespace Commerce.WebApi.Controllers
         /// <returns></returns>
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Create(AddProductRequest request)
+        public async Task<IActionResult> Create([FromBody] AddProductRequest request)
         {
             await productService.AddAsync(request);
+
+            return Ok();
+        }
+
+        /// <summary>
+        /// Update a product.
+        /// </summary>
+        /// <param name="request">Product details</param>
+        /// <returns></returns>
+        [HttpPut("{id}")]
+        [Authorize]
+        public async Task<IActionResult> Update([FromRoute] int id, [FromBody]UpdateProductRequest request)
+        {
+            await productService.UpdateAsync(id, request);
 
             return Ok();
         }

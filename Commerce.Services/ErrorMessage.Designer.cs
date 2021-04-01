@@ -79,6 +79,15 @@ namespace Commerce.Services {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Product does not exist..
+        /// </summary>
+        internal static string ProductNotFound {
+            get {
+                return ResourceManager.GetString("ProductNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Username is already in use..
         /// </summary>
         internal static string UsernameExists {

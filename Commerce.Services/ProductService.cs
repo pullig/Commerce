@@ -28,5 +28,21 @@ namespace Commerce.Services
 
             await productRepository.AddAsync(product);
         }
+
+        public async Task UpdateAsync(int Id, UpdateProductRequest request)
+        {
+            var product = productRepository.GetById(Id);
+
+            if(product == null)
+            {
+                throw new Exception(ErrorMessage.ProductNotFound);
+            }
+
+            product.Description = request.Description;
+            product.Name = request.Name;
+            product.Price = request.Price;
+
+            await productRepository.UpdateAsync(product);
+        }
     }
 }
