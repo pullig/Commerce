@@ -25,12 +25,12 @@ namespace Commerce.Infrastructure.Repositories
 
             if (!string.IsNullOrWhiteSpace(request.Username))
             {
-                orders = orders.Where(o => o.User.Username.Equals(request.Username));
+                orders = orders.Where(o => o.User.Username.ToLower().Equals(request.Username.ToLower()));
             }
 
             if (!string.IsNullOrWhiteSpace(request.ProductName))
             {
-                orders = orders.Where(o => o.Products.Any(p => p.Product.Name.Equals(request.ProductName)));
+                orders = orders.Where(o => o.Products.Any(p => p.Product.Name.ToLower().Equals(request.ProductName.ToLower())));
             }
 
             if (request.StartDate.HasValue)

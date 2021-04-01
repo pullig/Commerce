@@ -44,7 +44,7 @@ namespace Commerce.Test.Repositories
 
             var userRepository = InitializeRepository();
             var users = context.CommerceContext().Users
-                            .Where(u => u.Username.Contains(dto.Username))
+                            .Where(u => u.Username.ToLower().Contains(dto.Username.ToLower()))
                             .OrderBy(u => u.Username);
 
             var result = userRepository.GetUsers(dto);
@@ -64,7 +64,7 @@ namespace Commerce.Test.Repositories
 
             var userRepository = InitializeRepository();
             var users = context.CommerceContext().Users
-                            .Where(u => u.DisplayName.Contains(dto.DisplayName))
+                            .Where(u => u.DisplayName.ToLower().Contains(dto.DisplayName.ToLower()))
                             .OrderByDescending(u => u.Username);
 
             var result = userRepository.GetUsers(dto);
@@ -84,7 +84,7 @@ namespace Commerce.Test.Repositories
 
             var userRepository = InitializeRepository();
             var users = context.CommerceContext().Users
-                            .Where(u => u.EmailAddress.Contains(dto.EmailAddress))
+                            .Where(u => u.EmailAddress.ToLower().Contains(dto.EmailAddress.ToLower()))
                             .OrderBy(u => u.DisplayName);
 
             var result = userRepository.GetUsers(dto);
@@ -149,9 +149,9 @@ namespace Commerce.Test.Repositories
 
             var userRepository = InitializeRepository();
             var users = context.CommerceContext().Users
-                            .Where(u => u.Username.Contains(dto.Username) &&
-                                            u.DisplayName.Contains(dto.DisplayName) &&
-                                            u.EmailAddress.Contains(dto.EmailAddress) &&
+                            .Where(u => u.Username.Contains(dto.Username.ToLower()) &&
+                                            u.DisplayName.ToLower().Contains(dto.DisplayName.ToLower()) &&
+                                            u.EmailAddress.ToLower().Contains(dto.EmailAddress.ToLower()) &&
                                             u.CreationDate >= dto.StartDate &&
                                             u.CreationDate <= dto.EndDate)
                             .OrderByDescending(u => u.EmailAddress);

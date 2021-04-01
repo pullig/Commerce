@@ -60,7 +60,7 @@ namespace Commerce.Test.Repositories
 
             var orderRepository = InitializeRepository();
             var orders = context.CommerceContext().Orders
-                            .Where(u => u.User.Username.Equals(request.Username));
+                            .Where(u => u.User.Username.ToLower().Equals(request.Username.ToLower()));
 
             var result = orderRepository.GetOrders(request);
 
@@ -78,7 +78,7 @@ namespace Commerce.Test.Repositories
 
             var orderRepository = InitializeRepository();
             var orders = context.CommerceContext().Orders
-                            .Where(u => u.Products.Any( p => p.Product.Name.Equals(request.ProductName)));
+                            .Where(u => u.Products.Any( p => p.Product.Name.ToLower().Equals(request.ProductName.ToLower())));
 
             var result = orderRepository.GetOrders(request);
 
@@ -136,8 +136,8 @@ namespace Commerce.Test.Repositories
 
             var orderRepository = InitializeRepository();
             var orders = context.CommerceContext().Orders
-                            .Where(u => u.User.Username.Equals(request.Username) &&
-                                            u.Products.Any(p => p.Product.Name.Equals(request.ProductName)) &&
+                            .Where(u => u.User.Username.ToLower().Equals(request.Username.ToLower()) &&
+                                            u.Products.Any(p => p.Product.Name.ToLower().Equals(request.ProductName.ToLower())) &&
                                             u.Id == request.OrderId &&
                                             u.CreationDate >= request.StartDate &&
                                             u.CreationDate <= request.EndDate);

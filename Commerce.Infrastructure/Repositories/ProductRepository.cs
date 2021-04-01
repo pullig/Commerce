@@ -24,12 +24,12 @@ namespace Commerce.Infrastructure.Repositories
 
             if (!string.IsNullOrWhiteSpace(dto.Name))
             {
-                result = result.Where(u => u.Name.Contains(dto.Name));
+                result = result.Where(u => u.Name.ToLower().Contains(dto.Name.ToLower()));
             }
 
             if (!string.IsNullOrWhiteSpace(dto.Description))
             {
-                result = result.Where(u => u.Description.Contains(dto.Description));
+                result = result.Where(u => u.Description.ToLower().Contains(dto.Description.ToLower()));
             }
 
             if (dto.Price.HasValue)

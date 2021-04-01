@@ -22,17 +22,17 @@ namespace Commerce.Infrastructure.Repositories
 
             if (!string.IsNullOrWhiteSpace(dto.Username))
             {
-                result = result.Where(u => u.Username.Contains(dto.Username));
+                result = result.Where(u => u.Username.ToLower().Contains(dto.Username.ToLower()));
             }
 
             if (!string.IsNullOrWhiteSpace(dto.DisplayName))
             {
-                result = result.Where(u => u.DisplayName.Contains(dto.DisplayName));
+                result = result.Where(u => u.DisplayName.ToLower().Contains(dto.DisplayName.ToLower()));
             }
 
             if (!string.IsNullOrWhiteSpace(dto.EmailAddress))
             {
-                result = result.Where(u => u.EmailAddress.Contains(dto.EmailAddress));
+                result = result.Where(u => u.EmailAddress.ToLower().Contains(dto.EmailAddress.ToLower()));
             }
 
             if (dto.StartDate.HasValue)

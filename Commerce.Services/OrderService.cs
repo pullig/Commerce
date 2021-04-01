@@ -40,7 +40,9 @@ namespace Commerce.Services
 
             var productsList = productRepository.GetProducts(request.Products.Select(p => p.ProductId));
 
-            if(productsList == null || productsList.Count() == 0)
+            if(productsList == null || 
+                productsList.Count() == 0 ||
+                request.Products.Any(p => !productsList.Any(pl => pl.Id == p.ProductId)))
             {
                 throw new Exception(ErrorMessage.ProductsNotFound);
             }

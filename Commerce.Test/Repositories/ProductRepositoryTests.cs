@@ -82,7 +82,7 @@ namespace Commerce.Test.Repositories
 
             var productRepository = InitializeRepository();
             var products = context.CommerceContext().Products
-                            .Where(u => u.Name.Contains(dto.Name))
+                            .Where(u => u.Name.ToLower().Contains(dto.Name.ToLower()))
                             .OrderBy(u => u.Name);
 
             var result = productRepository.GetProducts(dto);
@@ -102,7 +102,7 @@ namespace Commerce.Test.Repositories
 
             var productRepository = InitializeRepository();
             var products = context.CommerceContext().Products
-                            .Where(u => u.Description.Contains(dto.Description))
+                            .Where(u => u.Description.ToLower().Contains(dto.Description.ToLower()))
                             .OrderByDescending(u => u.Name);
 
             var result = productRepository.GetProducts(dto);
@@ -187,8 +187,8 @@ namespace Commerce.Test.Repositories
 
             var productRepository = InitializeRepository();
             var products = context.CommerceContext().Products
-                            .Where(u => u.Name.Contains(dto.Name) &&
-                                            u.Description.Contains(dto.Description) &&
+                            .Where(u => u.Name.ToLower().Contains(dto.Name.ToLower()) &&
+                                            u.Description.ToLower().Contains(dto.Description.ToLower()) &&
                                             u.Price == dto.Price &&
                                             u.CreationDate >= dto.StartDate &&
                                             u.CreationDate <= dto.EndDate)
