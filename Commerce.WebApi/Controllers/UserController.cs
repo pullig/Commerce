@@ -3,6 +3,8 @@ using Commerce.Domain.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using System;
+using FluentValidation;
 
 namespace Commerce.WebApi.Controllers
 {
@@ -40,8 +42,18 @@ namespace Commerce.WebApi.Controllers
         [HttpPost("SignUp")]
         public async Task<IActionResult> SignUpAsync([FromBody] SignUpRequest signupDto)
         {
-            await userService.SignUpAsync(signupDto);
-
+            try
+            {
+                await userService.SignUpAsync(signupDto);
+            }
+            catch (ValidationException e)
+            {
+                return BadRequest(e.Errors);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
             return Ok();
         }
         /// <summary>
@@ -52,9 +64,17 @@ namespace Commerce.WebApi.Controllers
         [HttpPost("SignIn")]
         public async Task<IActionResult> SignInAsync([FromBody] SignInRequest dto)
         {
-            var user = await userService.SignInAsync(dto);
+            try
+            {
+                var user = await userService.SignInAsync(dto);
+                return Ok(user);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
 
-            return Ok(user);
+            
         }
     }
 }

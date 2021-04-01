@@ -2,6 +2,7 @@
 using Commerce.Domain.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 
 namespace Commerce.WebApi.Controllers
@@ -26,7 +27,14 @@ namespace Commerce.WebApi.Controllers
         [Authorize]
         public async Task<IActionResult> CreateAsync([FromBody]AddOrderRequest request)
         {
-            await orderService.AddOrderAsync(request);
+            try
+            {
+                await orderService.AddOrderAsync(request);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
             
             return Ok();
         }
@@ -38,11 +46,18 @@ namespace Commerce.WebApi.Controllers
         /// <returns>List of orders</returns>
         [HttpGet]
         [Authorize]
-        public IActionResult Get([FromQuery]GetOrderRequest request)
+        public IActionResult Get([FromQuery] GetOrderRequest request)
         {
+            try 
+            { 
             var result = orderService.GetOrders(request);
 
             return Ok(result);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
     }
 }

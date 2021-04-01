@@ -2,6 +2,7 @@
 using Commerce.Domain.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 
 namespace Commerce.WebApi.Controllers
@@ -25,7 +26,14 @@ namespace Commerce.WebApi.Controllers
         [Authorize]
         public async Task<IActionResult> CreateAsync([FromBody] AddProductRequest request)
         {
-            await productService.AddAsync(request);
+            try
+            {
+                await productService.AddAsync(request);
+            }
+            catch (Exception e)
+            {
+                BadRequest(e.Message);
+            }
 
             return Ok();
         }
@@ -39,7 +47,15 @@ namespace Commerce.WebApi.Controllers
         [Authorize]
         public async Task<IActionResult> UpdateAsync([FromRoute] int id, [FromBody]UpdateProductRequest request)
         {
-            await productService.UpdateAsync(id, request);
+            try
+            {
+                await productService.UpdateAsync(id, request);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+            
 
             return Ok();
         }
@@ -57,7 +73,14 @@ namespace Commerce.WebApi.Controllers
         [Authorize]
         public IActionResult Get([FromQuery] GetProductsRequest dto)
         {
-            return Ok(productService.GetProducts(dto));
+            try
+            {
+                return Ok(productService.GetProducts(dto));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
     }
 }
