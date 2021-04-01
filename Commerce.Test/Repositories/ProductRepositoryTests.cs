@@ -72,7 +72,7 @@ namespace Commerce.Test.Repositories
         }
 
         [Fact]
-        public void GetProducts_ShouldReturnListOfUsersFilteredByName()
+        public void GetProducts_ShouldReturnListOfProductsFilteredByName()
         {
             var dto = new GetProductsRequest
             {
@@ -81,18 +81,18 @@ namespace Commerce.Test.Repositories
             };
 
             var productRepository = InitializeRepository();
-            var users = context.CommerceContext().Products
+            var products = context.CommerceContext().Products
                             .Where(u => u.Name.Contains(dto.Name))
                             .OrderBy(u => u.Name);
 
             var result = productRepository.GetProducts(dto);
 
             context.DropCommerceContext();
-            Assert.Equal(users, result);
+            Assert.Equal(products, result);
         }
 
         [Fact]
-        public void GetProducts_ShouldReturnListOfUsersFilteredByDescription()
+        public void GetProducts_ShouldReturnListOfProductsFilteredByDescription()
         {
             var dto = new GetProductsRequest
             {
@@ -101,18 +101,18 @@ namespace Commerce.Test.Repositories
             };
 
             var productRepository = InitializeRepository();
-            var users = context.CommerceContext().Products
+            var products = context.CommerceContext().Products
                             .Where(u => u.Description.Contains(dto.Description))
                             .OrderByDescending(u => u.Name);
 
             var result = productRepository.GetProducts(dto);
 
             context.DropCommerceContext();
-            Assert.Equal(users, result);
+            Assert.Equal(products, result);
         }
 
         [Fact]
-        public void GetProducts_ShouldReturnListOfUsersFilteredByEmailAddress()
+        public void GetProducts_ShouldReturnListOfProductsFilteredByPrice()
         {
             var dto = new GetProductsRequest
             {
@@ -121,38 +121,38 @@ namespace Commerce.Test.Repositories
             };
 
             var productRepository = InitializeRepository();
-            var users = context.CommerceContext().Products
+            var products = context.CommerceContext().Products
                             .Where(u => u.Price == dto.Price)
                             .OrderBy(u => u.Description);
 
             var result = productRepository.GetProducts(dto);
 
             context.DropCommerceContext();
-            Assert.Equal(users, result);
+            Assert.Equal(products, result);
         }
 
         [Fact]
-        public void GetProducts_ShouldReturnListOfUsersFilteredByStartDate()
+        public void GetProducts_ShouldReturnListOfProductsFilteredByStartDate()
         {
             var dto = new GetProductsRequest
             {
-                StartDate = DateTime.Now,
+                StartDate = DateTime.Now.AddDays(-15),
                 OrderBy = ProductOrderBy.DescriptionDescending
             };
 
             var productRepository = InitializeRepository();
-            var users = context.CommerceContext().Products
+            var products = context.CommerceContext().Products
                             .Where(u => u.CreationDate >= dto.StartDate)
                             .OrderByDescending(u => u.Description);
 
             var result = productRepository.GetProducts(dto);
 
             context.DropCommerceContext();
-            Assert.Equal(users, result);
+            Assert.Equal(products, result);
         }
 
         [Fact]
-        public void GetProducts_ShouldReturnListOfUsersFilteredByEndDate()
+        public void GetProducts_ShouldReturnListOfProductsFilteredByEndDate()
         {
             var dto = new GetProductsRequest
             {
@@ -161,7 +161,7 @@ namespace Commerce.Test.Repositories
             };
 
             var productRepository = InitializeRepository();
-            var users = context.CommerceContext().Products
+            var products = context.CommerceContext().Products
                             .Where(u => u.Name.Contains(dto.Name) &&
                                             u.Description.Contains(dto.Description))
                             .OrderBy(u => u.Name);
@@ -169,11 +169,11 @@ namespace Commerce.Test.Repositories
             var result = productRepository.GetProducts(dto);
 
             context.DropCommerceContext();
-            Assert.Equal(users, result);
+            Assert.Equal(products, result);
         }
 
         [Fact]
-        public void GetProducts_ShouldReturnListOfUsersFilteredByAll()
+        public void GetProducts_ShouldReturnListOfProductsFilteredByAll()
         {
             var dto = new GetProductsRequest
             {
@@ -186,7 +186,7 @@ namespace Commerce.Test.Repositories
             };
 
             var productRepository = InitializeRepository();
-            var users = context.CommerceContext().Products
+            var products = context.CommerceContext().Products
                             .Where(u => u.Name.Contains(dto.Name) &&
                                             u.Description.Contains(dto.Description) &&
                                             u.Price == dto.Price &&
@@ -197,7 +197,7 @@ namespace Commerce.Test.Repositories
             var result = productRepository.GetProducts(dto);
 
             context.DropCommerceContext();
-            Assert.Equal(users, result);
+            Assert.Equal(products, result);
 
         }
 

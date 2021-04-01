@@ -168,5 +168,60 @@ namespace Commerce.Test.Services
 
             await Assert.ThrowsAsync<Exception>(() => orderService.AddOrderAsync(request));
         }
+
+        [Fact]
+        public void GetOrders_ShourReturnListOfOrders()
+        {
+            var expected = GenerateOrderResult();
+            var listOrders = new List<Order>
+            {
+                mockOrder
+            };
+
+            mockOrderRepository.Setup(m => m.GetOrders(It.IsAny<GetOrderRequest>()))
+                .Returns(listOrders);
+
+            mockMapper.Setup(m => m.Map<IEnumerable<GetOrderResult>>(It.IsAny<List<Order>>()))
+                .Returns(expected);
+
+            var result = orderService.GetOrders(new GetOrderRequest());
+
+            Assert.Equal(expected, result);
+        }
+
+        private List<GetOrderResult> GenerateOrderResult()
+        {
+            return new List<GetOrderResult>
+            {
+                new GetOrderResult
+                {
+                    Id = mockOrder.Id,
+                    Products = new List<GetProductOrdersResult>
+                    {
+                        new GetProductOrdersResult
+                        {
+                            Product = new GetProductsResult
+                            {
+                                CreationDate = mockProduct.CreationDate,
+                                Description = mockProduct.Description,
+                                Id = mockProduct.Id,
+                                Name = mockProduct.Name,
+                                Price = mockProduct.Price
+                            },
+                            Quantity = mockProductOrder.Quantity,
+                            UnityPrice = mockProductOrder.UnityPrice
+                        }
+                    },
+                    User = new GetUserResult
+                    {
+                        CreationDate = mockUser.CreationDate,
+                        DisplayName = mockUser.DisplayName,
+                        EmailAddress = mockUser.EmailAddress,
+                        Username = mockUser.Username
+                    },
+                    CreationDate = mockOrder.CreationDate
+                }
+            };
+        }
     }
 }

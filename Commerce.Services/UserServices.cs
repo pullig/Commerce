@@ -29,10 +29,10 @@ namespace Commerce.Services
             this.auth0Client = auth0Client;
         }
 
-        public IEnumerable<GetUserAsyncResult> GetUsers(GetUsersRequest dto)
+        public IEnumerable<GetUserResult> GetUsers(GetUsersRequest dto)
         {
             var result = userRepository.GetUsers(dto);
-            return mapper.Map<IEnumerable<GetUserAsyncResult>>(result);
+            return mapper.Map<IEnumerable<GetUserResult>>(result);
         }
 
         public async Task SignUpAsync(SignUpRequest signupDto)

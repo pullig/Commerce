@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Commerce.Domain.DTOs
 {
-    public class GetUserAsyncResult
+    public class GetUserResult
     {
         public string Username { get; set; }
         public string DisplayName { get; set; }

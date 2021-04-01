@@ -53,7 +53,7 @@ namespace Commerce.Test.Services
         [Fact]
         public void GetUsers_ShouldReturnListOfUsers()
         {
-            var getUserAsyncResult = new GetUserAsyncResult
+            var getUserAsyncResult = new GetUserResult
             {
                 CreationDate = mockUser.CreationDate,
                 DisplayName = mockUser.DisplayName,
@@ -66,12 +66,12 @@ namespace Commerce.Test.Services
                 mockUser
             };
 
-            var listResult = new List<GetUserAsyncResult>
+            var listResult = new List<GetUserResult>
             {
                 getUserAsyncResult
             };
 
-            mockMapper.Setup(m => m.Map<IEnumerable<GetUserAsyncResult>>(It.IsAny<IEnumerable<User>>()))
+            mockMapper.Setup(m => m.Map<IEnumerable<GetUserResult>>(It.IsAny<IEnumerable<User>>()))
                 .Returns(listResult);
 
             mockUserRepository.Setup(m => m.GetUsers(It.IsAny<GetUsersRequest>())).

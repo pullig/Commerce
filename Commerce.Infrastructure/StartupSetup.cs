@@ -12,7 +12,8 @@ namespace Commerce.Infrastructure
 	{
 		public static void AddDbContext(this IServiceCollection services, string connectionString) =>
 			services.AddDbContext<CommerceContext>(options =>
-				options.UseSqlServer(connectionString));
+				options.UseLazyLoadingProxies()
+					.UseSqlServer(connectionString));
 
 		public static void AddRepositories(this IServiceCollection services)
 		{

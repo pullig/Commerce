@@ -98,7 +98,7 @@ namespace Commerce.Test.Repositories
         {
             var dto = new GetUsersRequest
             {
-                StartDate = DateTime.Now,
+                StartDate = DateTime.Now.AddDays(-15),
                 OrderBy = UserOrderBy.DisplayNameDescending
             };
 

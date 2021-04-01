@@ -9,7 +9,7 @@ namespace Commerce.Domain
         public MapperProfile()
         {
             CreateMap<SignUpRequest, User>();
-            CreateMap<User, GetUserAsyncResult>();
+            CreateMap<User, GetUserResult>();
             CreateMap<User, SignedUser>();
 
             CreateMap<AddProductRequest, Product>();
@@ -18,6 +18,8 @@ namespace Commerce.Domain
 
             CreateMap<AddOrderRequest, Order>();
             CreateMap<AddOrderProductRequest, ProductOrder>();
+            CreateMap<Order, GetOrderResult>();
+            CreateMap<ProductOrder, GetProductOrdersResult>();
         }
     }
 }

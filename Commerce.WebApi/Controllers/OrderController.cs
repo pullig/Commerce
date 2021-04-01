@@ -1,11 +1,7 @@
 ﻿using Commerce.Domain.DTOs;
 using Commerce.Domain.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Commerce.WebApi.Controllers
@@ -28,11 +24,25 @@ namespace Commerce.WebApi.Controllers
         /// <returns></returns>
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> CreateAsync(AddOrderRequest request)
+        public async Task<IActionResult> CreateAsync([FromBody]AddOrderRequest request)
         {
             await orderService.AddOrderAsync(request);
             
             return Ok();
+        }
+        /// <summary>
+        /// Search for orders with the possibility of filetering by the username of the user that made the order
+        /// the product that might be in the order, order id or creation date, if no filters are passed returns all orders
+        /// </summary>
+        /// <param name="request">Data to filter the search</param>
+        /// <returns>List of orders</returns>
+        [HttpGet]
+        [Authorize]
+        public IActionResult Get([FromQuery]GetOrderRequest request)
+        {
+            var result = orderService.GetOrders(request);
+
+            return Ok(result);
         }
     }
 }

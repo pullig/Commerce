@@ -57,5 +57,14 @@ namespace Commerce.Services
             await orderRepository.AddAsync(order);
 
         }
+
+        public IEnumerable<GetOrderResult> GetOrders(GetOrderRequest request)
+        {
+            var orders = orderRepository.GetOrders(request);
+
+            var result = mapper.Map<IEnumerable<GetOrderResult>>(orders.ToList());
+
+            return result;
+        }
     }
 }

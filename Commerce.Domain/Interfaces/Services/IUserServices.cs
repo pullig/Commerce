@@ -13,7 +13,7 @@ namespace Commerce.Domain.Interfaces.Services
         /// Filters to search for am user, if no filters are passed will return all users
         /// </param>
         /// <returns>List of users</returns>
-        public IEnumerable<GetUserAsyncResult> GetUsers(GetUsersRequest dto);
+        public IEnumerable<GetUserResult> GetUsers(GetUsersRequest dto);
 
         /// <summary>
         /// Add an user to the 
