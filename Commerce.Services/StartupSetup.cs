@@ -12,6 +12,7 @@ namespace Commerce.Services
 		{
 			services.AddScoped<IUserServices, UserServices>();
 			services.AddScoped<IProductService, ProductService>();
+			services.AddScoped<IOrderService, OrderService>();
 		}
 
 		public static void AddValidators(this IServiceCollection services)

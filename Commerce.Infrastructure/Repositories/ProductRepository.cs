@@ -60,5 +60,12 @@ namespace Commerce.Infrastructure.Repositories
                     return result.OrderByDescending(o => o.Name);
             }
         }
+
+        public IEnumerable<Product> GetProducts(IEnumerable<int> productIds)
+        {
+            IEnumerable<Product> result = context.Products.Where(p => productIds.Contains(p.Id));
+
+            return result;
+        }
     }
 }

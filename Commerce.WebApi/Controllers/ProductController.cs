@@ -23,7 +23,7 @@ namespace Commerce.WebApi.Controllers
         /// <returns></returns>
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Create([FromBody] AddProductRequest request)
+        public async Task<IActionResult> CreateAsync([FromBody] AddProductRequest request)
         {
             await productService.AddAsync(request);
 
@@ -37,7 +37,7 @@ namespace Commerce.WebApi.Controllers
         /// <returns></returns>
         [HttpPut("{id}")]
         [Authorize]
-        public async Task<IActionResult> Update([FromRoute] int id, [FromBody]UpdateProductRequest request)
+        public async Task<IActionResult> UpdateAsync([FromRoute] int id, [FromBody]UpdateProductRequest request)
         {
             await productService.UpdateAsync(id, request);
 

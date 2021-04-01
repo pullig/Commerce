@@ -79,6 +79,15 @@ namespace Commerce.Services {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to At least one of the products does not exist...
+        /// </summary>
+        internal static string ProductsNotFound {
+            get {
+                return ResourceManager.GetString("OneProductNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Product does not exist..
         /// </summary>
         internal static string ProductNotFound {
@@ -93,6 +102,15 @@ namespace Commerce.Services {
         internal static string UsernameExists {
             get {
                 return ResourceManager.GetString("UsernameExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User does not exist..
+        /// </summary>
+        internal static string UserNotFound {
+            get {
+                return ResourceManager.GetString("UserNotFound", resourceCulture);
             }
         }
     }

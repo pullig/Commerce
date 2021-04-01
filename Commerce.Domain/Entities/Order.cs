@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Commerce.Domain.Entities
 {
@@ -10,6 +11,6 @@ namespace Commerce.Domain.Entities
 
         public virtual User User { get; set; }
 
-        //public virtual List<ProductOrder> ProductOrders { get; set; }
+        public virtual List<ProductOrder> Products { get; set; }
     }
 }

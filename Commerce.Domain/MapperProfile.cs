@@ -15,6 +15,9 @@ namespace Commerce.Domain
             CreateMap<AddProductRequest, Product>();
             CreateMap<UpdateProductRequest, Product>();
             CreateMap<Product, GetProductsResult>();
+
+            CreateMap<AddOrderRequest, Order>();
+            CreateMap<AddOrderProductRequest, ProductOrder>();
         }
     }
 }

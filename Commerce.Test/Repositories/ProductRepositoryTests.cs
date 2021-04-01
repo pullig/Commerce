@@ -24,7 +24,7 @@ namespace Commerce.Test.Repositories
         [Fact]
         public async Task AddAsync_ShouldAddProduct()
         {
-            var userRepository = InitializeRepository();
+            var productRepository = InitializeRepository();
 
             var product = new Product
             {
@@ -34,7 +34,7 @@ namespace Commerce.Test.Repositories
                 Price = 2M
             };
 
-            var result = await userRepository.AddAsync(product);
+            var result = await productRepository.AddAsync(product);
 
             var addedProduct = context.CommerceContext().Products.FirstOrDefault(u => u.Name.Equals(product.Name));
 
@@ -50,7 +50,7 @@ namespace Commerce.Test.Repositories
         [Fact]
         public async Task UpdateAsync_ShouldUpdateProduct()
         {
-            var userRepository = InitializeRepository();
+            var productRepository = InitializeRepository();
 
             var product = context.CommerceContext().Products.FirstOrDefault(u => u.Id == 1);
 
@@ -58,7 +58,7 @@ namespace Commerce.Test.Repositories
             product.Description = "updatedDescription";
             product.Price = 6M;
 
-            var result = await userRepository.UpdateAsync(product);
+            var result = await productRepository.UpdateAsync(product);
 
             var updatedProduct = context.CommerceContext().Products.FirstOrDefault(u => u.Id == product.Id);
 
@@ -80,12 +80,12 @@ namespace Commerce.Test.Repositories
                 OrderBy = ProductOrderBy.NameAscending
             };
 
-            var userRepository = InitializeRepository();
+            var productRepository = InitializeRepository();
             var users = context.CommerceContext().Products
                             .Where(u => u.Name.Contains(dto.Name))
                             .OrderBy(u => u.Name);
 
-            var result = userRepository.GetProducts(dto);
+            var result = productRepository.GetProducts(dto);
 
             context.DropCommerceContext();
             Assert.Equal(users, result);
@@ -100,12 +100,12 @@ namespace Commerce.Test.Repositories
                 OrderBy = ProductOrderBy.NameDescending
             };
 
-            var userRepository = InitializeRepository();
+            var productRepository = InitializeRepository();
             var users = context.CommerceContext().Products
                             .Where(u => u.Description.Contains(dto.Description))
                             .OrderByDescending(u => u.Name);
 
-            var result = userRepository.GetProducts(dto);
+            var result = productRepository.GetProducts(dto);
 
             context.DropCommerceContext();
             Assert.Equal(users, result);
@@ -120,12 +120,12 @@ namespace Commerce.Test.Repositories
                 OrderBy = ProductOrderBy.DescriptionAscending
             };
 
-            var userRepository = InitializeRepository();
+            var productRepository = InitializeRepository();
             var users = context.CommerceContext().Products
                             .Where(u => u.Price == dto.Price)
                             .OrderBy(u => u.Description);
 
-            var result = userRepository.GetProducts(dto);
+            var result = productRepository.GetProducts(dto);
 
             context.DropCommerceContext();
             Assert.Equal(users, result);
@@ -140,12 +140,12 @@ namespace Commerce.Test.Repositories
                 OrderBy = ProductOrderBy.DescriptionDescending
             };
 
-            var userRepository = InitializeRepository();
+            var productRepository = InitializeRepository();
             var users = context.CommerceContext().Products
                             .Where(u => u.CreationDate >= dto.StartDate)
                             .OrderByDescending(u => u.Description);
 
-            var result = userRepository.GetProducts(dto);
+            var result = productRepository.GetProducts(dto);
 
             context.DropCommerceContext();
             Assert.Equal(users, result);
@@ -160,13 +160,13 @@ namespace Commerce.Test.Repositories
                 OrderBy = ProductOrderBy.NameAscending
             };
 
-            var userRepository = InitializeRepository();
+            var productRepository = InitializeRepository();
             var users = context.CommerceContext().Products
                             .Where(u => u.Name.Contains(dto.Name) &&
                                             u.Description.Contains(dto.Description))
                             .OrderBy(u => u.Name);
 
-            var result = userRepository.GetProducts(dto);
+            var result = productRepository.GetProducts(dto);
 
             context.DropCommerceContext();
             Assert.Equal(users, result);
@@ -185,7 +185,7 @@ namespace Commerce.Test.Repositories
                 OrderBy = ProductOrderBy.NameAscending
             };
 
-            var userRepository = InitializeRepository();
+            var productRepository = InitializeRepository();
             var users = context.CommerceContext().Products
                             .Where(u => u.Name.Contains(dto.Name) &&
                                             u.Description.Contains(dto.Description) &&
@@ -194,7 +194,7 @@ namespace Commerce.Test.Repositories
                                             u.CreationDate <= dto.EndDate)
                             .OrderBy(u => u.Name);
 
-            var result = userRepository.GetProducts(dto);
+            var result = productRepository.GetProducts(dto);
 
             context.DropCommerceContext();
             Assert.Equal(users, result);

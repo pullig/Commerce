@@ -24,12 +24,12 @@ namespace Commerce.Infrastructure.Context
                     WithOne().
                     HasForeignKey<Order>(o => o.UserId);
 
-                //entity.HasMany(o => o.ProductOrders).
-                //    WithOne().
-                //    HasForeignKey(o => o.OrderId);
+                entity.HasMany(o => o.Products).
+                    WithOne().
+                    HasForeignKey(o => o.OrderId);
 
-                //entity.Navigation(o => o.ProductOrders)
-                //    .UsePropertyAccessMode(PropertyAccessMode.Property);
+                entity.Navigation(o => o.Products)
+                    .UsePropertyAccessMode(PropertyAccessMode.Property);
             });
 
             modelBuilder.Entity<ProductOrder>((entity =>
