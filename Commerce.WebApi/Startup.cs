@@ -36,10 +36,23 @@ namespace Commerce.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAllHeaders",
+                builder =>
+                {
+                    builder.AllowAnyOrigin()
+                           .AllowAnyHeader()
+                           .AllowAnyMethod();
+                });
+            });
+
             services.AddControllers();
 
             services.AddServices();
             services.AddRepositories();
+
+
 
             var mapperConfig = new MapperConfiguration(mc =>
             {
@@ -120,6 +133,8 @@ namespace Commerce.WebApi
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors("AllowAllHeaders");
 
             app.UseAuthentication();
             app.UseAuthorization();

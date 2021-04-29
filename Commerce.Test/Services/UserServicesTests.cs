@@ -146,12 +146,13 @@ namespace Commerce.Test.Services
                 Token = "token"
             };
 
-            var signedUser = new SignedUser
+            var signedUser = new SignInResult
             {
                 CreationDate = mockUser.CreationDate,
                 DisplayName = mockUser.DisplayName,
                 EmailAddress = mockUser.EmailAddress,
-                Username = mockUser.Username
+                Username = mockUser.Username,
+                Id = mockUser.Id
             };
 
             mockUserRepository.Setup(m => m.GetUserByUsernameAndPassword(It.IsAny<SignInRequest>()))
@@ -168,13 +169,13 @@ namespace Commerce.Test.Services
             mockSignUpValidator.Setup(v => v.Validate(It.IsAny<SignUpRequest>()))
                 .Returns(validationResult);
 
-            mockMapper.Setup(m => m.Map<SignedUser>(It.IsAny<User>()))
+            mockMapper.Setup(m => m.Map<SignInResult>(It.IsAny<User>()))
                 .Returns(signedUser);
 
             var result = await userServices.SignInAsync(dto);
 
             Assert.Equal(tokenResult.Token, result.Token);
-            Assert.Equal(signedUser, result.User);
+            Assert.Equal(signedUser.Id, result.Id);
         }
     }
 }

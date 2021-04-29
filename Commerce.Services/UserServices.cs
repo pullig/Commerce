@@ -67,13 +67,10 @@ namespace Commerce.Services
 
             var result = await auth0Client.GetTokenAsync();
 
-            var userSignedIn = mapper.Map<SignedUser>(user);
+            var userSignedIn = mapper.Map<SignInResult>(user);
+            userSignedIn.Token = result.Token;
 
-            return new SignInResult
-            {
-                Token = result.Token,
-                User = userSignedIn
-            };
+            return userSignedIn;
         }
     }
 }
